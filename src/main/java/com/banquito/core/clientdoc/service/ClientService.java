@@ -2,9 +2,7 @@ package com.banquito.core.clientdoc.service;
 
 import com.banquito.core.clientdoc.model.Client;
 import com.banquito.core.clientdoc.repository.ClientRepository;
-import com.banquito.core.clientdoc.repository.ClientPhoneRepository;
-import com.banquito.core.clientdoc.repository.ClientAddressRepository;
-import com.banquito.core.clientdoc.dto.ClientDTO;
+import com.banquito.core.clientdoc.dto.SimpleClientDTO;
 import com.banquito.core.clientdoc.util.mapper.ClientMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,49 +14,44 @@ import java.util.stream.Collectors;
 public class ClientService {
 
     private final ClientRepository clientRepository;
-    private final ClientPhoneRepository clientPhoneRepository;
-    private final ClientAddressRepository clientAddressRepository;
     private final ClientMapper clientMapper;
     private static final String CLIENT_NOT_FOUND = "No existe el cliente con id: ";
 
-    public ClientService(ClientRepository clientRepository, ClientPhoneRepository clientPhoneRepository,
-            ClientAddressRepository clientAddressRepository, ClientMapper clientMapper) {
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper) {
         this.clientRepository = clientRepository;
-        this.clientPhoneRepository = clientPhoneRepository;
-        this.clientAddressRepository = clientAddressRepository;
         this.clientMapper = clientMapper;
     }
 
-    public ClientDTO getClientById(String id) {
+    public SimpleClientDTO getClientById(String id) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(CLIENT_NOT_FOUND + id));
-        return clientMapper.toDTO(client);
+        return clientMapper.toSimpleClientDTO(client);
     }
 
-    public ClientDTO getClientByIdentification(String identification) {
-        return clientMapper.toDTO(clientRepository.findByIdentification(identification));
+    public SimpleClientDTO getClientByIdentification(String identification) {
+        return clientMapper.toSimpleClientDTO(clientRepository.findByIdentification(identification));
     }
 
-    public ClientDTO getClientByEmail(String email) {
-        return clientMapper.toDTO(clientRepository.findByEmail(email));
+    public SimpleClientDTO getClientByEmail(String email) {
+        return clientMapper.toSimpleClientDTO(clientRepository.findByEmail(email));
     }
 
-    public ClientDTO getClientByFullName(String fullName) {
-        return clientMapper.toDTO(clientRepository.findByFullName(fullName));
+    public SimpleClientDTO getClientByFullName(String fullName) {
+        return clientMapper.toSimpleClientDTO(clientRepository.findByFullName(fullName));
     }
 
-    public List<ClientDTO> getAllClients() {
+    public List<SimpleClientDTO> getAllClients() {
         return clientRepository.findAll().stream()
-                .map(clientMapper::toDTO)
+                .map(clientMapper::toSimpleClientDTO)
                 .collect(Collectors.toList());
     }
 
-    public ClientDTO createClient(ClientDTO clientDTO) {
-        Client client = clientMapper.toModel(clientDTO);
-        return clientMapper.toDTO(clientRepository.save(client));
+    public SimpleClientDTO createClient(SimpleClientDTO clientDTO) {
+        Client client = clientMapper.toClient(clientDTO);
+        return clientMapper.toSimpleClientDTO(clientRepository.save(client));
     }
 
-    public ClientDTO updateClient(String id, ClientDTO clientDetails) {
+    public SimpleClientDTO updateClient(String id, SimpleClientDTO clientDetails) {
         Client client = clientRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(CLIENT_NOT_FOUND + id));
         client.setLastName(clientDetails.getLastName());
@@ -74,7 +67,7 @@ public class ClientService {
         client.setIdentification(clientDetails.getIdentification());
         client.setMonthlyAverageIncome(clientDetails.getMonthlyAverageIncome());
 
-        return clientMapper.toDTO(clientRepository.save(client));
+        return clientMapper.toSimpleClientDTO(clientRepository.save(client));
     }
 
     @Transactional
@@ -83,16 +76,6 @@ public class ClientService {
                 .orElseThrow(() -> new RuntimeException(CLIENT_NOT_FOUND + id));
         client.setState("INA");
         clientRepository.save(client);
-
-        clientPhoneRepository.findByClientId(id).forEach(phone -> {
-            phone.setState("INA");
-            clientPhoneRepository.save(phone);
-        });
-
-        clientAddressRepository.findByClientId(id).forEach(address -> {
-            address.setState("INA");
-            clientAddressRepository.save(address);
-        });
     }
 
     @Transactional
@@ -101,31 +84,21 @@ public class ClientService {
                 .orElseThrow(() -> new RuntimeException(CLIENT_NOT_FOUND + id));
         client.setState("ACT");
         clientRepository.save(client);
-
-        clientPhoneRepository.findByClientId(id).forEach(phone -> {
-            phone.setState("ACT");
-            clientPhoneRepository.save(phone);
-        });
-
-        clientAddressRepository.findByClientId(id).forEach(address -> {
-            address.setState("ACT");
-            clientAddressRepository.save(address);
-        });
     }
 
-    public ClientDTO getLastInsertedClient() {
-        return clientMapper.toDTO(clientRepository.findTopByOrderByCreateDateDesc());
+    public SimpleClientDTO getLastInsertedClient() {
+        return clientMapper.toSimpleClientDTO(clientRepository.findTopByOrderByCreateDateDesc());
     }
 
-    public List<ClientDTO> getClientsByIdentificationType(String identificationType) {
+    public List<SimpleClientDTO> getClientsByIdentificationType(String identificationType) {
         return clientRepository.findByIdentificationType(identificationType).stream()
-                .map(clientMapper::toDTO)
+                .map(clientMapper::toSimpleClientDTO)
                 .collect(Collectors.toList());
     }
 
-    public List<ClientDTO> getClientsByCompanyName(String companyName) {
+    public List<SimpleClientDTO> getClientsByCompanyName(String companyName) {
         return clientRepository.findByCompanyName(companyName).stream()
-                .map(clientMapper::toDTO)
+                .map(clientMapper::toSimpleClientDTO)
                 .collect(Collectors.toList());
     }
 }

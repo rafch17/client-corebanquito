@@ -1,17 +1,15 @@
 package com.banquito.core.clientdoc.util.mapper;
 
-import com.banquito.core.clientdoc.dto.ClientDTO;
+import com.banquito.core.clientdoc.dto.SimpleClientDTO;
 import com.banquito.core.clientdoc.model.Client;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring", uses = { PhoneMapper.class, AddressMapper.class })
+@Mapper(componentModel = "spring")
 public interface ClientMapper {
-        @Mapping(source = "phones", target = "phones")
-        @Mapping(source = "addresses", target = "addresses")
-        ClientDTO toDTO(Client client);
+        ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
 
-        @Mapping(source = "phones", target = "phones")
-        @Mapping(source = "addresses", target = "addresses")
-        Client toModel(ClientDTO clientDTO);
+        SimpleClientDTO toSimpleClientDTO(Client client);
+
+        Client toClient(SimpleClientDTO clientDTO);
 }
