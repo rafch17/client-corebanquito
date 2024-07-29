@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -34,23 +37,35 @@ public class Client {
     private String uniqueId;
     @Indexed
     private String clientType;
+    @NotNull
     private String identificationType;
+    @NotNull
     private String identification;
+    @NotNull
     private String lastName;
+    @NotNull
     private String firstName;
     @Indexed
     private String fullName;
     @Indexed(unique = true)
+    @Email
+    @NotNull
     private String email;
     private LocalDate birthDate;
+    @NotNull
     private String companyName;
+    @NotNull
     private String companyType;
+    @NotNull
     private String state;
     @Indexed
+    @NotNull
     private LocalDateTime createDate;
+    @NotNull
     private LocalDateTime lastStateDate;
     private String nationality;
     private String maritalState;
+    @NotNull
     private BigDecimal monthlyAverageIncome;
     private String notes;
     private List<Phone> phones;

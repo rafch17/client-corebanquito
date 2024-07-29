@@ -1,5 +1,8 @@
 package com.banquito.corecobros.clientdoc.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,9 +21,12 @@ public class Segment {
     @Id
     private String id;
     @Indexed(unique = true)
+    @NotNull
     private String code;
     private String uniqueId;
+    @NotNull
     private String name;
+    @NotEmpty
     private String clientType;
     private String description;
 
