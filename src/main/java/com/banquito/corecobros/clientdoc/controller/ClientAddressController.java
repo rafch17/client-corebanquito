@@ -18,6 +18,8 @@ public class ClientAddressController {
         this.clientAddressService = clientAddressService;
     }
 
+    @CrossOrigin(origins = "*")
+
     @GetMapping
     public List<Address> getAllClientAddresses() {
         log.info("Obteniendo todas las direcciones.");

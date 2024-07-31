@@ -18,6 +18,8 @@ public class ClientController {
         this.clientService = clientService;
     }
 
+    @CrossOrigin(origins = "*")
+
     @GetMapping("/{uniqueId}")
     public ClientDTO getClientByUniqueId(@PathVariable String uniqueId) {
         log.info("Buscando cliente con uniqueId: {}", uniqueId);

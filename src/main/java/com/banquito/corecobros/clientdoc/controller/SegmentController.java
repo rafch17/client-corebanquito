@@ -18,6 +18,8 @@ public class SegmentController {
         this.segmentService = segmentService;
     }
 
+    @CrossOrigin(origins = "*")
+
     @GetMapping
     public List<SegmentDTO> getAllSegments() {
         log.info("Obteniendo todos los segmentos.");

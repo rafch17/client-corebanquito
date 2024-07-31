@@ -18,6 +18,8 @@ public class ClientPhoneController {
         this.clientPhoneService = clientPhoneService;
     }
 
+    @CrossOrigin(origins = "*")
+
     @GetMapping
     public List<Phone> getAllClientPhones() {
         log.info("Obteniendo todos los teléfonos.");
