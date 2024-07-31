@@ -4,13 +4,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
 
 @Data
 @NoArgsConstructor
 public class Address {
+    @Id
     private String id;
-    @NotNull
-    private String clientId;
     @NotNull
     private String type;
     @NotNull

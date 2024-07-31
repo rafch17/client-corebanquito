@@ -6,7 +6,5 @@ import com.banquito.corecobros.clientdoc.model.Phone;
 import java.util.List;
 
 public interface ClientPhoneRepository extends MongoRepository<Phone, String> {
-    List<Phone> findByClientId(String clientId);
-
-    List<Phone> findByClientIdAndIsDefault(String clientId, boolean isDefault);
+    List<Phone> findByIdAndIsDefault(String id, boolean isDefault);
 }

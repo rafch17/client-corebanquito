@@ -1,6 +1,6 @@
 package com.banquito.corecobros.clientdoc.controller;
 
-import com.banquito.corecobros.clientdoc.model.Segment;
+import com.banquito.corecobros.clientdoc.dto.SegmentDTO;
 import com.banquito.corecobros.clientdoc.service.SegmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -19,33 +19,32 @@ public class SegmentController {
     }
 
     @GetMapping
-    public List<Segment> getAllSegments() {
-        log.info("Obteniendo todos los segmentos ordenados por nombre.");
+    public List<SegmentDTO> getAllSegments() {
+        log.info("Obteniendo todos los segmentos.");
         return segmentService.getAllSegments();
     }
 
-    @GetMapping("/{code}")
-    public Segment getSegmentByCode(@PathVariable String code) {
-        log.info("Buscando segmento con código: {}", code);
-        return segmentService.getSegmentByCode(code);
+    @GetMapping("/{uniqueId}")
+    public SegmentDTO getSegmentByUniqueId(@PathVariable String uniqueId) {
+        log.info("Buscando segmento con uniqueId: {}", uniqueId);
+        return segmentService.getSegmentByUniqueId(uniqueId);
     }
 
     @PostMapping
-    public Segment createSegment(@RequestBody Segment segment) {
-        log.info("Creando nuevo segmento con código: {}", segment.getCode());
-        return segmentService.createSegment(segment);
+    public SegmentDTO createSegment(@RequestBody SegmentDTO segmentDTO) {
+        log.info("Creando nuevo segmento.");
+        return segmentService.createSegment(segmentDTO);
     }
 
-    @PutMapping("/{code}")
-    public Segment updateSegment(@PathVariable String code, @RequestBody Segment segment) {
-        log.info("Actualizando segmento con código: {}", code);
-        segment.setCode(code);
-        return segmentService.updateSegment(code, segment);
+    @PutMapping("/{uniqueId}")
+    public SegmentDTO updateSegment(@PathVariable String uniqueId, @RequestBody SegmentDTO segmentDTO) {
+        log.info("Actualizando segmento con uniqueId: {}", uniqueId);
+        return segmentService.updateSegment(uniqueId, segmentDTO);
     }
 
-    @DeleteMapping("/{code}")
-    public void deleteSegment(@PathVariable String code) {
-        log.info("Eliminando segmento con código: {}", code);
-        segmentService.deleteSegment(code);
+    @DeleteMapping("/{uniqueId}")
+    public void deleteSegment(@PathVariable String uniqueId) {
+        log.info("Eliminando segmento con uniqueId: {}", uniqueId);
+        segmentService.deleteSegment(uniqueId);
     }
 }

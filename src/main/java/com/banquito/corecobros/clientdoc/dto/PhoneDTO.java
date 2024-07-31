@@ -3,6 +3,7 @@ package com.banquito.corecobros.clientdoc.dto;
 import lombok.Builder;
 import lombok.Value;
 import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 
 @Value
@@ -11,9 +12,12 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PhoneDTO {
     private String id;
-    private String clientId;
-    private String phoneType;
-    private String phoneNumber;
+    @NotNull
+    private String type;
+    @NotNull
+    private String number;
+    @NotNull
     private Boolean isDefault;
-    private Boolean state;
+    @NotNull
+    private String state;
 }

@@ -19,7 +19,7 @@ public class ClientAddressService {
     }
 
     public List<Address> getAllClientAddresses() {
-        log.info("Obteniendo todas las direcciones de clientes.");
+        log.info("Obteniendo todas las direcciones.");
         return repository.findAll();
     }
 
@@ -32,18 +32,13 @@ public class ClientAddressService {
                 });
     }
 
-    public List<Address> getClientAddressesByClientId(String clientId) {
-        log.info("Obteniendo direcciones del cliente con id: {}", clientId);
-        return repository.findByClientId(clientId);
-    }
-
-    public List<Address> getDefaultClientAddressesByClientId(String clientId) {
-        log.info("Obteniendo direcciones predeterminadas del cliente con id: {}", clientId);
-        return repository.findByClientIdAndIsDefault(clientId, true);
+    public List<Address> getDefaultClientAddressesById(String id) {
+        log.info("Buscando dirección por defecto con id: {}", id);
+        return repository.findByIdAndIsDefault(id, true);
     }
 
     public Address createClientAddress(Address clientAddress) {
-        log.info("Creando nueva dirección para el cliente con id: {}", clientAddress.getClientId());
+        log.info("Creando nueva dirección.");
         return repository.save(clientAddress);
     }
 
@@ -54,15 +49,13 @@ public class ClientAddressService {
                     log.error(CLIENT_ADDRESS_NOT_FOUND + id);
                     return new RuntimeException(CLIENT_ADDRESS_NOT_FOUND + id);
                 });
-
         clientAddress.setType(clientAddressDetails.getType());
         clientAddress.setLine1(clientAddressDetails.getLine1());
         clientAddress.setLine2(clientAddressDetails.getLine2());
         clientAddress.setLatitude(clientAddressDetails.getLatitude());
         clientAddress.setLongitude(clientAddressDetails.getLongitude());
         clientAddress.setIsDefault(clientAddressDetails.getIsDefault());
-
-        log.info("Dirección con id: {} actualizada exitosamente", id);
+        clientAddress.setState(clientAddressDetails.getState());
         return repository.save(clientAddress);
     }
 
@@ -73,8 +66,6 @@ public class ClientAddressService {
                     log.error(CLIENT_ADDRESS_NOT_FOUND + id);
                     return new RuntimeException(CLIENT_ADDRESS_NOT_FOUND + id);
                 });
-
         repository.delete(clientAddress);
-        log.info("Dirección con id: {} eliminada exitosamente", id);
     }
 }

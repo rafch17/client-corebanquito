@@ -20,38 +20,32 @@ public class ClientPhoneController {
 
     @GetMapping
     public List<Phone> getAllClientPhones() {
-        log.info("Obteniendo todos los teléfonos de clientes.");
+        log.info("Obteniendo todos los teléfonos.");
         return clientPhoneService.getAllClientPhones();
     }
 
     @GetMapping("/{id}")
     public Phone getClientPhoneById(@PathVariable String id) {
-        log.info("Buscando teléfono con id: {}", id);
+        log.info("Obteniendo teléfono con id: {}", id);
         return clientPhoneService.getClientPhoneById(id);
     }
 
-    @GetMapping("/client/{clientId}")
-    public List<Phone> getClientPhonesByClientId(@PathVariable String clientId) {
-        log.info("Obteniendo teléfonos del cliente con id: {}", clientId);
-        return clientPhoneService.getClientPhonesByClientId(clientId);
-    }
-
-    @GetMapping("/client/{clientId}/default")
-    public List<Phone> getDefaultClientPhonesByClientId(@PathVariable String clientId) {
-        log.info("Obteniendo teléfonos predeterminados del cliente con id: {}", clientId);
-        return clientPhoneService.getDefaultClientPhonesByClientId(clientId);
+    @GetMapping("/default/{id}")
+    public List<Phone> getDefaultClientPhonesById(@PathVariable String id) {
+        log.info("Obteniendo teléfono por defecto con id: {}", id);
+        return clientPhoneService.getDefaultClientPhonesById(id);
     }
 
     @PostMapping
-    public Phone createClientPhone(@RequestBody Phone clientPhone) {
-        log.info("Creando nuevo teléfono para el cliente con id: {}", clientPhone.getClientId());
-        return clientPhoneService.createClientPhone(clientPhone);
+    public Phone createClientPhone(@RequestBody Phone phone) {
+        log.info("Creando nuevo teléfono.");
+        return clientPhoneService.createClientPhone(phone);
     }
 
     @PutMapping("/{id}")
-    public Phone updateClientPhone(@PathVariable String id, @RequestBody Phone clientPhone) {
+    public Phone updateClientPhone(@PathVariable String id, @RequestBody Phone phone) {
         log.info("Actualizando teléfono con id: {}", id);
-        return clientPhoneService.updateClientPhone(id, clientPhone);
+        return clientPhoneService.updateClientPhone(id, phone);
     }
 
     @DeleteMapping("/{id}")

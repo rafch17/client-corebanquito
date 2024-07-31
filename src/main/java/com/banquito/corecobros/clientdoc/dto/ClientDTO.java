@@ -22,8 +22,8 @@ public class ClientDTO {
     private String clientType;
     private String identificationType;
     private String identification;
-    private String lastName;
     private String firstName;
+    private String lastName;
     private String email;
     private LocalDate birthDate;
     private String companyName;

@@ -2,11 +2,12 @@ package com.banquito.corecobros.clientdoc.service;
 
 import com.banquito.corecobros.clientdoc.model.Phone;
 import com.banquito.corecobros.clientdoc.repository.ClientPhoneRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Service
 public class ClientPhoneService {
 
@@ -18,49 +19,50 @@ public class ClientPhoneService {
     }
 
     public List<Phone> getAllClientPhones() {
+        log.info("Obteniendo todos los teléfonos.");
         return repository.findAll();
     }
 
     public Phone getClientPhoneById(String id) {
-        Optional<Phone> clientPhoneOpt = repository.findById(id);
-        if (clientPhoneOpt.isPresent()) {
-            return clientPhoneOpt.get();
-        } else {
-            throw new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
-        }
+        log.info("Buscando teléfono con id: {}", id);
+        return repository.findById(id)
+                .orElseThrow(() -> {
+                    log.error(CLIENT_PHONE_NOT_FOUND + id);
+                    return new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
+                });
     }
 
-    public List<Phone> getClientPhonesByClientId(String clientId) {
-        return repository.findByClientId(clientId);
-    }
-
-    public List<Phone> getDefaultClientPhonesByClientId(String clientId) {
-        return repository.findByClientIdAndIsDefault(clientId, true);
+    public List<Phone> getDefaultClientPhonesById(String id) {
+        log.info("Buscando teléfono por defecto con id: {}", id);
+        return repository.findByIdAndIsDefault(id, true);
     }
 
     public Phone createClientPhone(Phone clientPhone) {
+        log.info("Creando nuevo teléfono.");
         return repository.save(clientPhone);
     }
 
     public Phone updateClientPhone(String id, Phone clientPhoneDetails) {
-        Optional<Phone> optionalClientPhone = repository.findById(id);
-        if (optionalClientPhone.isPresent()) {
-            Phone clientPhone = optionalClientPhone.get();
-            clientPhone.setType(clientPhoneDetails.getType());
-            clientPhone.setNumber(clientPhoneDetails.getNumber());
-            clientPhone.setIsDefault(clientPhoneDetails.getIsDefault());
-            return repository.save(clientPhone);
-        } else {
-            throw new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
-        }
+        log.info("Actualizando teléfono con id: {}", id);
+        Phone clientPhone = repository.findById(id)
+                .orElseThrow(() -> {
+                    log.error(CLIENT_PHONE_NOT_FOUND + id);
+                    return new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
+                });
+        clientPhone.setType(clientPhoneDetails.getType());
+        clientPhone.setNumber(clientPhoneDetails.getNumber());
+        clientPhone.setIsDefault(clientPhoneDetails.getIsDefault());
+        clientPhone.setState(clientPhoneDetails.getState());
+        return repository.save(clientPhone);
     }
 
     public void deleteClientPhone(String id) {
-        Optional<Phone> optionalClientPhone = repository.findById(id);
-        if (optionalClientPhone.isPresent()) {
-            repository.delete(optionalClientPhone.get());
-        } else {
-            throw new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
-        }
+        log.info("Eliminando teléfono con id: {}", id);
+        Phone clientPhone = repository.findById(id)
+                .orElseThrow(() -> {
+                    log.error(CLIENT_PHONE_NOT_FOUND + id);
+                    return new RuntimeException(CLIENT_PHONE_NOT_FOUND + id);
+                });
+        repository.delete(clientPhone);
     }
 }

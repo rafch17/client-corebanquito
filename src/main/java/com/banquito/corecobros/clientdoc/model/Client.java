@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -33,18 +32,18 @@ public class Client {
     @Indexed
     private String codeSegment;
     private String nameSegment;
-    @Indexed
     private String uniqueId;
     @Indexed
+    @NotNull
     private String clientType;
     @NotNull
     private String identificationType;
     @NotNull
     private String identification;
     @NotNull
-    private String lastName;
-    @NotNull
     private String firstName;
+    @NotNull
+    private String lastName;
     @Indexed
     private String fullName;
     @Indexed(unique = true)
@@ -63,10 +62,13 @@ public class Client {
     private LocalDateTime createDate;
     @NotNull
     private LocalDateTime lastStateDate;
+    @NotNull
     private String nationality;
+    @NotNull
     private String maritalState;
     @NotNull
     private BigDecimal monthlyAverageIncome;
+    @NotNull
     private String notes;
     private List<Phone> phones;
     private List<Address> addresses;

@@ -1,15 +1,17 @@
 package com.banquito.corecobros.clientdoc.util.mapper;
 
-import com.banquito.corecobros.clientdoc.dto.SimpleClientDTO;
+import com.banquito.corecobros.clientdoc.dto.ClientDTO;
 import com.banquito.corecobros.clientdoc.model.Client;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { PhoneMapper.class, AddressMapper.class })
 public interface ClientMapper {
-        ClientMapper INSTANCE = Mappers.getMapper(ClientMapper.class);
+        @Mapping(source = "phones", target = "phones")
+        @Mapping(source = "addresses", target = "addresses")
+        ClientDTO toDTO(Client client);
 
-        SimpleClientDTO toSimpleDTO(Client client);
-
-        Client toModel(SimpleClientDTO clientDTO);
+        @Mapping(source = "phones", target = "phones")
+        @Mapping(source = "addresses", target = "addresses")
+        Client toModel(ClientDTO clientDTO);
 }

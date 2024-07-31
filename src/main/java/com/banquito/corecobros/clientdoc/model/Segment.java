@@ -17,12 +17,12 @@ import lombok.ToString;
 @ToString
 @Document(collection = "segments")
 public class Segment {
-
     @Id
     private String id;
     @Indexed(unique = true)
     @NotNull
     private String code;
+    @NotNull
     private String uniqueId;
     @NotNull
     private String name;

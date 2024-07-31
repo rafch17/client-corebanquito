@@ -20,38 +20,32 @@ public class ClientAddressController {
 
     @GetMapping
     public List<Address> getAllClientAddresses() {
-        log.info("Obteniendo todas las direcciones de clientes.");
+        log.info("Obteniendo todas las direcciones.");
         return clientAddressService.getAllClientAddresses();
     }
 
     @GetMapping("/{id}")
     public Address getClientAddressById(@PathVariable String id) {
-        log.info("Buscando dirección con id: {}", id);
+        log.info("Obteniendo dirección con id: {}", id);
         return clientAddressService.getClientAddressById(id);
     }
 
-    @GetMapping("/client/{clientId}")
-    public List<Address> getClientAddressesByClientId(@PathVariable String clientId) {
-        log.info("Obteniendo direcciones del cliente con id: {}", clientId);
-        return clientAddressService.getClientAddressesByClientId(clientId);
-    }
-
-    @GetMapping("/client/{clientId}/default")
-    public List<Address> getDefaultClientAddressesByClientId(@PathVariable String clientId) {
-        log.info("Obteniendo direcciones predeterminadas del cliente con id: {}", clientId);
-        return clientAddressService.getDefaultClientAddressesByClientId(clientId);
+    @GetMapping("/default/{id}")
+    public List<Address> getDefaultClientAddressesById(@PathVariable String id) {
+        log.info("Obteniendo dirección por defecto con id: {}", id);
+        return clientAddressService.getDefaultClientAddressesById(id);
     }
 
     @PostMapping
-    public Address createClientAddress(@RequestBody Address clientAddress) {
-        log.info("Creando nueva dirección para el cliente con id: {}", clientAddress.getClientId());
-        return clientAddressService.createClientAddress(clientAddress);
+    public Address createClientAddress(@RequestBody Address address) {
+        log.info("Creando nueva dirección.");
+        return clientAddressService.createClientAddress(address);
     }
 
     @PutMapping("/{id}")
-    public Address updateClientAddress(@PathVariable String id, @RequestBody Address clientAddress) {
+    public Address updateClientAddress(@PathVariable String id, @RequestBody Address address) {
         log.info("Actualizando dirección con id: {}", id);
-        return clientAddressService.updateClientAddress(id, clientAddress);
+        return clientAddressService.updateClientAddress(id, address);
     }
 
     @DeleteMapping("/{id}")
