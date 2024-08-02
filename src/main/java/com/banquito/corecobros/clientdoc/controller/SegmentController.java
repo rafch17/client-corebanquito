@@ -9,7 +9,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/segment")
+@RequestMapping("/api/v1/segments")
 public class SegmentController {
 
     private final SegmentService segmentService;
