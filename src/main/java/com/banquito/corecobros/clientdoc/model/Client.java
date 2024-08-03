@@ -29,11 +29,12 @@ public class Client {
 
     @Id
     private String id;
-    @Indexed
+    @NotNull
     private String codeSegment;
+    @NotNull
     private String nameSegment;
+    @NotNull
     private String uniqueId;
-    @Indexed
     @NotNull
     private String clientType;
     @NotNull
@@ -57,7 +58,6 @@ public class Client {
     private String companyType;
     @NotNull
     private String state;
-    @Indexed
     @NotNull
     private LocalDateTime createDate;
     @NotNull
