@@ -10,7 +10,6 @@ import com.banquito.corecobros.clientdoc.util.UniqueId.UniqueIdGeneration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -40,7 +39,6 @@ public class ClientService {
         client.setLastStateDate(LocalDateTime.now());
         client.setState("ACT");
 
-        // Asignar IDs únicos a phones y addresses si no tienen
         if (client.getPhones() != null) {
             for (Phone phone : client.getPhones()) {
                 if (phone.getId() == null) {
