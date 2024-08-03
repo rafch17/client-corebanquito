@@ -67,7 +67,6 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
-    // Métodos para manejar los teléfonos
     public List<Phone> getClientPhonesByUniqueId(String uniqueId) {
         Client client = getClientEntityByUniqueId(uniqueId);
         return client.getPhones();
@@ -113,7 +112,6 @@ public class ClientService {
         clientRepository.save(client);
     }
 
-    // Métodos para manejar las direcciones
     public List<Address> getClientAddressesByUniqueId(String uniqueId) {
         Client client = getClientEntityByUniqueId(uniqueId);
         return client.getAddresses();
