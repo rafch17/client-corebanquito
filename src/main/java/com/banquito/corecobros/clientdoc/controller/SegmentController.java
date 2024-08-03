@@ -2,10 +2,12 @@ package com.banquito.corecobros.clientdoc.controller;
 
 import com.banquito.corecobros.clientdoc.dto.SegmentDTO;
 import com.banquito.corecobros.clientdoc.service.SegmentService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Slf4j
