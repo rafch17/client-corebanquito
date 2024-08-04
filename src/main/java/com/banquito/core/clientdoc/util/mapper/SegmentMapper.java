@@ -1,8 +1,9 @@
-package com.banquito.corecobros.clientdoc.util.mapper;
+package com.banquito.core.clientdoc.util.mapper;
 
-import com.banquito.corecobros.clientdoc.dto.SegmentDTO;
-import com.banquito.corecobros.clientdoc.model.Segment;
 import org.mapstruct.Mapper;
+
+import com.banquito.core.clientdoc.dto.SegmentDTO;
+import com.banquito.core.clientdoc.model.Segment;
 
 @Mapper(componentModel = "spring")
 public interface SegmentMapper {

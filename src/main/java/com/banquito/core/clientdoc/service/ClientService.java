@@ -1,19 +1,22 @@
-package com.banquito.corecobros.clientdoc.service;
+package com.banquito.core.clientdoc.service;
 
-import com.banquito.corecobros.clientdoc.dto.ClientDTO;
-import com.banquito.corecobros.clientdoc.model.Client;
-import com.banquito.corecobros.clientdoc.model.Phone;
-import com.banquito.corecobros.clientdoc.model.Address;
-import com.banquito.corecobros.clientdoc.repository.ClientRepository;
-import com.banquito.corecobros.clientdoc.util.mapper.ClientMapper;
-import com.banquito.corecobros.clientdoc.util.UniqueId.UniqueIdGeneration;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.banquito.core.clientdoc.dto.ClientDTO;
+import com.banquito.core.clientdoc.model.Address;
+import com.banquito.core.clientdoc.model.Client;
+import com.banquito.core.clientdoc.model.Phone;
+import com.banquito.core.clientdoc.repository.ClientRepository;
+import com.banquito.core.clientdoc.util.UniqueId.UniqueIdGeneration;
+import com.banquito.core.clientdoc.util.mapper.ClientMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

@@ -1,14 +1,16 @@
-package com.banquito.corecobros.clientdoc.service;
-
-import com.banquito.corecobros.clientdoc.dto.SegmentDTO;
-import com.banquito.corecobros.clientdoc.model.Segment;
-import com.banquito.corecobros.clientdoc.repository.SegmentRepository;
-import com.banquito.corecobros.clientdoc.util.mapper.SegmentMapper;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+package com.banquito.core.clientdoc.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.banquito.core.clientdoc.dto.SegmentDTO;
+import com.banquito.core.clientdoc.model.Segment;
+import com.banquito.core.clientdoc.repository.SegmentRepository;
+import com.banquito.core.clientdoc.util.mapper.SegmentMapper;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service

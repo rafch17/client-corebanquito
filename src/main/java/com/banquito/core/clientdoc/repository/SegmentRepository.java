@@ -1,9 +1,10 @@
-package com.banquito.corecobros.clientdoc.repository;
-
-import com.banquito.corecobros.clientdoc.model.Segment;
-import org.springframework.data.mongodb.repository.MongoRepository;
+package com.banquito.core.clientdoc.repository;
 
 import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.banquito.core.clientdoc.model.Segment;
 
 public interface SegmentRepository extends MongoRepository<Segment, String> {
     Segment findByUniqueId(String uniqueId);

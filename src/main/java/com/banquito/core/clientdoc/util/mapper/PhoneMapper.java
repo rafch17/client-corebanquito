@@ -1,8 +1,9 @@
-package com.banquito.corecobros.clientdoc.util.mapper;
+package com.banquito.core.clientdoc.util.mapper;
 
-import com.banquito.corecobros.clientdoc.dto.PhoneDTO;
-import com.banquito.corecobros.clientdoc.model.Phone;
 import org.mapstruct.Mapper;
+
+import com.banquito.core.clientdoc.dto.PhoneDTO;
+import com.banquito.core.clientdoc.model.Phone;
 
 @Mapper(componentModel = "spring")
 public interface PhoneMapper {

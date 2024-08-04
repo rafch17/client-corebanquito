@@ -1,8 +1,10 @@
-package com.banquito.corecobros.clientdoc.repository;
+package com.banquito.core.clientdoc.repository;
 
-import com.banquito.corecobros.clientdoc.model.Client;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
+
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import com.banquito.core.clientdoc.model.Client;
 
 public interface ClientRepository extends MongoRepository<Client, String> {
     Client findByUniqueId(String uniqueId);

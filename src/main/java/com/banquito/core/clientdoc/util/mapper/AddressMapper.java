@@ -1,8 +1,9 @@
-package com.banquito.corecobros.clientdoc.util.mapper;
+package com.banquito.core.clientdoc.util.mapper;
 
-import com.banquito.corecobros.clientdoc.dto.AddressDTO;
-import com.banquito.corecobros.clientdoc.model.Address;
 import org.mapstruct.Mapper;
+
+import com.banquito.core.clientdoc.dto.AddressDTO;
+import com.banquito.core.clientdoc.model.Address;
 
 @Mapper(componentModel = "spring")
 public interface AddressMapper {

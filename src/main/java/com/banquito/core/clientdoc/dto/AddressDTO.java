@@ -1,12 +1,12 @@
-package com.banquito.corecobros.clientdoc.dto;
-
-import lombok.Builder;
-import lombok.Value;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+package com.banquito.core.clientdoc.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
 @Value
 @Builder

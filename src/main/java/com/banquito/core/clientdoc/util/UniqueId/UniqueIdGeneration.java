@@ -1,6 +1,7 @@
-package com.banquito.corecobros.clientdoc.util.UniqueId;
+package com.banquito.core.clientdoc.util.UniqueId;
 
 import java.util.Random;
+
 import org.springframework.stereotype.Component;
 
 @Component

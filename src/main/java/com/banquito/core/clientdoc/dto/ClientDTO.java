@@ -1,14 +1,14 @@
-package com.banquito.corecobros.clientdoc.dto;
+package com.banquito.core.clientdoc.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
 @Value
 @Builder

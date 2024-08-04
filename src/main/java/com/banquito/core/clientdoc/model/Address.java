@@ -1,10 +1,12 @@
-package com.banquito.corecobros.clientdoc.model;
+package com.banquito.core.clientdoc.model;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.data.annotation.Id;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import org.springframework.data.annotation.Id;
 
 @Data
 @NoArgsConstructor
