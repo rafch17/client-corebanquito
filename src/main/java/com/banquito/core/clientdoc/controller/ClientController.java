@@ -55,48 +55,6 @@ public class ClientController {
         return clientService.getClientByUniqueId(uniqueId);
     }
 
-    @GetMapping("/identification/{identification}")
-    @Operation(summary = "Get client by identification", description = "Retrieve a client by their identification")
-    public ClientDTO getClientByIdentification(@PathVariable String identification) {
-        log.info("Obteniendo cliente por identificación: {}", identification);
-        return clientService.getClientByIdentification(identification);
-    }
-
-    @GetMapping("/email/{email}")
-    @Operation(summary = "Get client by email", description = "Retrieve a client by their email")
-    public ClientDTO getClientByEmail(@PathVariable String email) {
-        log.info("Obteniendo cliente por email: {}", email);
-        return clientService.getClientByEmail(email);
-    }
-
-    @GetMapping("/fullname/{fullName}")
-    @Operation(summary = "Get client by full name", description = "Retrieve a client by their full name")
-    public ClientDTO getClientByFullName(@PathVariable String fullName) {
-        log.info("Obteniendo cliente por nombre completo: {}", fullName);
-        return clientService.getClientByFullName(fullName);
-    }
-
-    @GetMapping("/last")
-    @Operation(summary = "Get the last inserted client", description = "Retrieve the last inserted client")
-    public ClientDTO getLastInsertedClient() {
-        log.info("Obteniendo el último cliente insertado.");
-        return clientService.getLastInsertedClient();
-    }
-
-    @GetMapping("/identification-type/{identificationType}")
-    @Operation(summary = "Get clients by identification type", description = "Retrieve clients by their identification type")
-    public List<ClientDTO> getClientsByIdentificationType(@PathVariable String identificationType) {
-        log.info("Obteniendo clientes por tipo de identificación: {}", identificationType);
-        return clientService.getClientsByIdentificationType(identificationType);
-    }
-
-    @GetMapping("/company-name/{companyName}")
-    @Operation(summary = "Get clients by company name", description = "Retrieve clients by their company name")
-    public List<ClientDTO> getClientsByCompanyName(@PathVariable String companyName) {
-        log.info("Obteniendo clientes por nombre de la empresa: {}", companyName);
-        return clientService.getClientsByCompanyName(companyName);
-    }
-
     @PutMapping("/{uniqueId}")
     @Operation(summary = "Update a client", description = "Update an existing client by their uniqueId")
     public ClientDTO updateClient(@PathVariable String uniqueId, @RequestBody ClientDTO clientDTO) {
@@ -111,11 +69,39 @@ public class ClientController {
         clientService.deleteClient(uniqueId);
     }
 
-    @PutMapping("/reactivate/{uniqueId}")
-    @Operation(summary = "Reactivate a client", description = "Reactivate a logically deleted client by their uniqueId")
-    public void reactivateClient(@PathVariable String uniqueId) {
-        log.info("Reactivando cliente con uniqueId: {}", uniqueId);
-        clientService.reactivateClient(uniqueId);
+    @PutMapping("/{uniqueId}/addresses")
+    @Operation(summary = "Update a client address", description = "Update an existing address of a client by their uniqueId")
+    public Address updateClientAddress(@PathVariable String uniqueId, @RequestBody Address addressDetails) {
+        log.info("Actualizando dirección del cliente con uniqueId: {}", uniqueId);
+        return clientService.updateClientAddress(uniqueId, addressDetails);
+    }
+
+    @GetMapping("/{uniqueId}/addresses")
+    @Operation(summary = "Get client addresses by uniqueId", description = "Retrieve all addresses of a client by their uniqueId")
+    public List<Address> getClientAddressesByUniqueId(@PathVariable String uniqueId) {
+        log.info("Obteniendo direcciones del cliente con uniqueId: {}", uniqueId);
+        return clientService.getClientAddressesByUniqueId(uniqueId);
+    }
+
+    @DeleteMapping("/{uniqueId}/addresses/{addressId}")
+    @Operation(summary = "Delete a client address", description = "Logically delete an address of a client by their uniqueId and addressId")
+    public void deleteClientAddress(@PathVariable String uniqueId, @PathVariable String addressId) {
+        log.info("Eliminando dirección del cliente con uniqueId: {}", uniqueId);
+        clientService.deleteClientAddress(uniqueId, addressId);
+    }
+
+    @GetMapping("/{uniqueId}/addresses/default")
+    @Operation(summary = "Get default client addresses by uniqueId", description = "Retrieve all default addresses of a client by their uniqueId")
+    public List<Address> getDefaultClientAddressesByUniqueId(@PathVariable String uniqueId) {
+        log.info("Obteniendo direcciones predeterminadas del cliente con uniqueId: {}", uniqueId);
+        return clientService.getDefaultClientAddressesByUniqueId(uniqueId);
+    }
+
+    @PutMapping("/{uniqueId}/addresses/reactivate/{addressId}")
+    @Operation(summary = "Reactivate a client address", description = "Reactivate a logically deleted address of a client by their uniqueId and addressId")
+    public void reactivateClientAddress(@PathVariable String uniqueId, @PathVariable String addressId) {
+        log.info("Reactivando dirección del cliente con uniqueId: {}", uniqueId);
+        clientService.reactivateClientAddress(uniqueId, addressId);
     }
 
     @GetMapping("/{uniqueId}/phones")
@@ -123,13 +109,6 @@ public class ClientController {
     public List<Phone> getClientPhonesByUniqueId(@PathVariable String uniqueId) {
         log.info("Obteniendo teléfonos del cliente con uniqueId: {}", uniqueId);
         return clientService.getClientPhonesByUniqueId(uniqueId);
-    }
-
-    @GetMapping("/{uniqueId}/phones/default")
-    @Operation(summary = "Get default client phones by uniqueId", description = "Retrieve all default phones of a client by their uniqueId")
-    public List<Phone> getDefaultClientPhonesByUniqueId(@PathVariable String uniqueId) {
-        log.info("Obteniendo teléfonos predeterminados del cliente con uniqueId: {}", uniqueId);
-        return clientService.getDefaultClientPhonesByUniqueId(uniqueId);
     }
 
     @PutMapping("/{uniqueId}/phones")
@@ -146,6 +125,13 @@ public class ClientController {
         clientService.deleteClientPhone(uniqueId, phoneId);
     }
 
+    @GetMapping("/{uniqueId}/phones/default")
+    @Operation(summary = "Get default client phones by uniqueId", description = "Retrieve all default phones of a client by their uniqueId")
+    public List<Phone> getDefaultClientPhonesByUniqueId(@PathVariable String uniqueId) {
+        log.info("Obteniendo teléfonos predeterminados del cliente con uniqueId: {}", uniqueId);
+        return clientService.getDefaultClientPhonesByUniqueId(uniqueId);
+    }
+
     @PutMapping("/{uniqueId}/phones/reactivate/{phoneId}")
     @Operation(summary = "Reactivate a client phone", description = "Reactivate a logically deleted phone of a client by their uniqueId and phoneId")
     public void reactivateClientPhone(@PathVariable String uniqueId, @PathVariable String phoneId) {
@@ -153,38 +139,52 @@ public class ClientController {
         clientService.reactivateClientPhone(uniqueId, phoneId);
     }
 
-    @GetMapping("/{uniqueId}/addresses")
-    @Operation(summary = "Get client addresses by uniqueId", description = "Retrieve all addresses of a client by their uniqueId")
-    public List<Address> getClientAddressesByUniqueId(@PathVariable String uniqueId) {
-        log.info("Obteniendo direcciones del cliente con uniqueId: {}", uniqueId);
-        return clientService.getClientAddressesByUniqueId(uniqueId);
+    @GetMapping("/company-name/{companyName}")
+    @Operation(summary = "Get clients by company name", description = "Retrieve clients by their company name")
+    public List<ClientDTO> getClientsByCompanyName(@PathVariable String companyName) {
+        log.info("Obteniendo clientes por nombre de la empresa: {}", companyName);
+        return clientService.getClientsByCompanyName(companyName);
     }
 
-    @GetMapping("/{uniqueId}/addresses/default")
-    @Operation(summary = "Get default client addresses by uniqueId", description = "Retrieve all default addresses of a client by their uniqueId")
-    public List<Address> getDefaultClientAddressesByUniqueId(@PathVariable String uniqueId) {
-        log.info("Obteniendo direcciones predeterminadas del cliente con uniqueId: {}", uniqueId);
-        return clientService.getDefaultClientAddressesByUniqueId(uniqueId);
+    @GetMapping("/email/{email}")
+    @Operation(summary = "Get client by email", description = "Retrieve a client by their email")
+    public ClientDTO getClientByEmail(@PathVariable String email) {
+        log.info("Obteniendo cliente por email: {}", email);
+        return clientService.getClientByEmail(email);
     }
 
-    @PutMapping("/{uniqueId}/addresses")
-    @Operation(summary = "Update a client address", description = "Update an existing address of a client by their uniqueId")
-    public Address updateClientAddress(@PathVariable String uniqueId, @RequestBody Address addressDetails) {
-        log.info("Actualizando dirección del cliente con uniqueId: {}", uniqueId);
-        return clientService.updateClientAddress(uniqueId, addressDetails);
+    @GetMapping("/fullname/{fullName}")
+    @Operation(summary = "Get client by full name", description = "Retrieve a client by their full name")
+    public ClientDTO getClientByFullName(@PathVariable String fullName) {
+        log.info("Obteniendo cliente por nombre completo: {}", fullName);
+        return clientService.getClientByFullName(fullName);
+    }
+    
+    @GetMapping("/identification/{identification}")
+    @Operation(summary = "Get client by identification", description = "Retrieve a client by their identification")
+    public ClientDTO getClientByIdentification(@PathVariable String identification) {
+        log.info("Obteniendo cliente por identificación: {}", identification);
+        return clientService.getClientByIdentification(identification);
     }
 
-    @DeleteMapping("/{uniqueId}/addresses/{addressId}")
-    @Operation(summary = "Delete a client address", description = "Logically delete an address of a client by their uniqueId and addressId")
-    public void deleteClientAddress(@PathVariable String uniqueId, @PathVariable String addressId) {
-        log.info("Eliminando dirección del cliente con uniqueId: {}", uniqueId);
-        clientService.deleteClientAddress(uniqueId, addressId);
+    @GetMapping("/identification-type/{identificationType}")
+    @Operation(summary = "Get clients by identification type", description = "Retrieve clients by their identification type")
+    public List<ClientDTO> getClientsByIdentificationType(@PathVariable String identificationType) {
+        log.info("Obteniendo clientes por tipo de identificación: {}", identificationType);
+        return clientService.getClientsByIdentificationType(identificationType);
     }
 
-    @PutMapping("/{uniqueId}/addresses/reactivate/{addressId}")
-    @Operation(summary = "Reactivate a client address", description = "Reactivate a logically deleted address of a client by their uniqueId and addressId")
-    public void reactivateClientAddress(@PathVariable String uniqueId, @PathVariable String addressId) {
-        log.info("Reactivando dirección del cliente con uniqueId: {}", uniqueId);
-        clientService.reactivateClientAddress(uniqueId, addressId);
+    @GetMapping("/last")
+    @Operation(summary = "Get the last inserted client", description = "Retrieve the last inserted client")
+    public ClientDTO getLastInsertedClient() {
+        log.info("Obteniendo el último cliente insertado.");
+        return clientService.getLastInsertedClient();
+    }
+
+    @PutMapping("/reactivate/{uniqueId}")
+    @Operation(summary = "Reactivate a client", description = "Reactivate a logically deleted client by their uniqueId")
+    public void reactivateClient(@PathVariable String uniqueId) {
+        log.info("Reactivando cliente con uniqueId: {}", uniqueId);
+        clientService.reactivateClient(uniqueId);
     }
 }
